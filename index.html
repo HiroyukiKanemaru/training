@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All in One Training Calendar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left"><!-- 左側にカレンダー表示用コンテナ作成-->
+            <div class="calendar">
+                <div class="goto-today">
+                    <!--
+                    <div class="goto">
+                        <input type="text" placeholder="mm/yyyy" class="date-input" />
+                        <button class="goto-btn">GO</button>
+                    </div>
+                    -->
+                    <button class="today-btn">TODAY</button>
+                </div>
+                <div class="month">
+                    <button id="btnPrevYear"><i class="fa fa-angle-double-left prev"></i></button>
+                    <button id="btnPrev"><i class="fa fa-angle-left prev"></i></button>
+                    <div class="date"></div>
+                    <button id="btnNext"><i class="fa fa-angle-right next"></i></button>
+                    <button id="btnNextYear"><i class="fa fa-angle-double-right next"></i></button>
+                </div>
+                <div class="weekdays">
+                    <div>日</div>
+                    <div>月</div>
+                    <div>火</div>
+                    <div>水</div>
+                    <div>木</div>
+                    <div>金</div>
+                    <div>土</div>
+                </div>
+                <div class="days">
+                    <!-- JSにて追加する --
+                    <div class="day prev-date">30</div>
+                    <div class="day">1</div>
+                    <div class="day">2</div>
+                    <div class="day">3</div>
+                    <div class="day">4</div>
+                    <div class="day">5</div>
+                    <div class="day">6</div>
+                    <div class="day">7</div>
+                    <div class="day">8</div>
+                    <div class="day">9</div>
+                    <div class="day">10</div>
+                    <div class="day">11</div>
+                    <div class="day">12</div>
+                    <div class="day event active">13</div>
+                    <div class="day today">14</div>
+                    <div class="day">15</div>
+                    <div class="day event">16</div>
+                    <div class="day">17</div>
+                    <div class="day">18</div>
+                    <div class="day event">19</div>
+                    <div class="day">20</div>
+                    <div class="day">21</div>
+                    <div class="day">22</div>
+                    <div class="day">23</div>
+                    <div class="day">24</div>
+                    <div class="day">25</div>
+                    <div class="day">26</div>
+                    <div class="day">27</div>
+                    <div class="day">28</div>
+                    <div class="day">29</div>
+                    <div class="day">30</div>
+                    <div class="day">31</div>
+                    <div class="day next-date">1</div>
+                    <div class="day next-date">2</div>
+                    <div class="day next-date">3</div>
+                    -->
+                </div>
+
+            </div>
+        </div>
+        <div class="right">
+            <div class="today-date">
+                <div class="event-date">2023年5月17日</div>
+                <div class="event-day">（水）</div>
+            </div>
+            <div class="events">
+                <!--JSにて追加--
+                <div class="event">
+                    <div class="title">
+                        <i class="fas fa-circle"></i>
+                        <h3 class="event-title">Event 1</h3>
+                    </div>
+                    <div class="event-time">10:00-12:00</div>
+                </div>
+                <div class="event">
+                    <div class="title">
+                        <i class="fas fa-running"></i>
+                        <h3 class="event-title">Event 1</h3>
+                    </div>
+                    <div class="event-time">10:00-12:00</div>
+                </div>
+                </div>
+                -->
+            </div>
+            <div class="add-event-wrapper">
+                <div class="add-event-header">
+                    <div class="title">Add Training Event</div>
+                    <span class="close">
+                        <i class="fas fa-window-close"></i>
+                    </span>
+                    <span>閉じる</span>
+                </div>
+                <div class="add-event-body">
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Training Menu" class="event-name" />
+                    </div>
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Time From" class="event-time-from" />
+                    </div>
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Time To" class="event-time-to" />
+                    </div>
+                </div>
+                <div class="add-event-footer">
+                    <button class="add-event-btn">追加</button>
+                </div>
+            </div>
+        </div>
+        <button class="add-event">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

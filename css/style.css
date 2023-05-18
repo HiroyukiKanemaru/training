@@ -1,0 +1,471 @@
+@charset "utf-8";
+
+/*基準カラー*/
+:root {
+    --primary-clr: #757378;
+}
+
+/**セレクタ内のスタイルルールは、ドキュメント内のすべての要素に 適用される */
+* {
+    margin: 0;
+    padding: 0;
+    /*border-boxを要素に指定すると、paddingとborderは要素のwidthとheightに含まれます。*/
+    box-sizing: border-box;
+    font-family: Roboto, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+}
+
+body {
+    /*vh：ビューポート（画面サイズ）の高さに対する割合。100vhは画面の高さと同じ（100%）を表す*/
+    min-height: 100vh;
+    /*Body要素を中央に配置*/
+
+    display: flex;
+    /*フレックスコンテナの指定*/
+    align-items: center;
+    justify-content: center;
+    background-color: #757378;
+}
+
+.container {
+    /*相対位置を基準に位置が決定されます。
+    ここでいう相対位置とは、本来その要素が表示される位置を基準とした位置です。*/
+    position: relative;
+    width: 1200px;
+    min-height: 800px;
+    margin: 0 auto;
+    padding: 5px;
+    color: #fff;
+    /*フレックスコンテナの指定*/
+    display: flex;
+    border-radius: 10px;
+    background-color: #959393;
+}
+
+.left {
+    width: 60%;
+    padding: 50px 0px;
+}
+
+.calendar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*フレックスコンテナの指定*/
+    display: flex;
+    /* 積み重なるように配置する */
+    /*子要素(フレックスアイテム)をどの方向に並べていくかを指定するプロパティ*/
+    flex-direction: column;
+    /*フレックスアイテムは複数行に分割*/
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #fff;
+    border-radius: 10px;
+    background-color: #353434;
+}
+
+/*カレンダー上部の装飾（ボタンや年月の部分）*/
+.calendar .month {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.date {
+    width: 250px;
+    text-align: center;
+}
+
+/*カレンダー上部ボタンの装飾*/
+button {
+    width: 75px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/*カレンダー上部ボタンのマウス動作*/
+/*hover:ユーザーがポインティングデバイスで要素に反応したものの、アクティブ化する必要がないものを選択*/
+button:hover {
+    background-color: #1d717c;
+    color: #fff;
+}
+
+/*曜日全体のレイアウト*/
+.weekdays {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+/*曜日のDivタグの装飾*/
+.weekdays div {
+    width: 14.28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*日にちのレイアウト*/
+.days {
+    width: 100%;
+    display: flex;
+    /*フレックスアイテムは複数行に分割*/
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+/*日にちのDivタグの装飾*/
+.day {
+    width: 14.28%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #757378;
+    /*box-shadow: 0px 0px 3px #959393;*/
+}
+
+/*日付部分のマウス動作*/
+.day:not(.prev-date, .next-date):hover {
+    background-color: var(--primary-clr);
+}
+
+/*今月以外の日付の装飾*/
+.prev-date,
+.next-date {
+    color: #959393;
+}
+
+/*activeの時装飾*/
+.calendar .days .active {
+    position: relative;
+    font-size: 25px;
+    background-color: var(--primary-clr);
+}
+
+/*activeに影入れ afterだと綺麗にならない。*/
+.calendar .day .active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px 2px var(--primary-clr);
+}
+
+/*今日の日付の装飾*/
+.today {
+    font-size: 25px;
+}
+
+/*イベントの前処理*/
+/*親要素を基準に位置を決めるabsoluteを使用する場合は、
+  必ず親要素にrelativeを設定しておく必要があります*/
+.days .event {
+    position: relative;
+}
+
+/*イベントあり時に下線表示の装飾*/
+.days .event::after {
+    content: "";
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 75%;
+    height: 6px;
+    border-radius: 30px;
+    transform: translateX(-50%);
+    background-color: var(--primary-clr);
+}
+
+/*イベント箇所にカーソル操作後白字にする処理*/
+.days .event:hover::after {
+    background-color: #fff;
+}
+
+/*アクティブ時はイベントが同化するため白抜きへ*/
+.calendar .active.event::after {
+    background-color: #fff;
+}
+
+/*アクティブ時は文字差サイズが大きいのでイベントの下線とバランスが悪いようであればここで調整
+.active.event{
+    padding-bottom: 10px;
+}
+*/
+/*カレンダー上部のボタン等のレイアウト設定*/
+.goto-today {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+
+/*年月選択インプットとボタンのレイアウト設定*/
+.goto {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/*年月選択インプットボックスの装飾*/
+.goto input {
+    width: 100%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.goto-today button {
+    padding: 5px 10px;
+    border: var(--primary-clr);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.right {
+    position: relative;
+    width: 40%;
+    min-height: 100%;
+    padding: 50px 0;
+}
+
+.today-date {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    padding-left: 70px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+}
+
+.today-date .event-day {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.today-date .event-date {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.events {
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}
+
+.events .event {
+    position: relative;
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 20px;
+    padding-left: 50px;
+    cursor: pointer;
+    background: linear-gradient(#eae5e5, transparent);
+    margin-bottom: 5px;
+}
+
+.events .event:hover {
+    background: linear-gradient(#57c9d8, transparent);
+}
+
+.events .no-event {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.events .event .title {
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    letter-spacing: 2px;
+}
+
+.events .event .event-time {
+    font-size: 1rem;
+    margin-left: 50px;
+    pointer-events: none;
+    letter-spacing: 2px;
+}
+
+.events .event .title .event-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.add-event-wrapper {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    width: 90%;
+    max-height: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #fff;
+    transform: translateX(-50%);
+    transition: max-height 0.5s ease;
+}
+
+.add-event-wrapper.active {
+    max-height: 500px;
+}
+
+.add-event-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #0aa756;
+    font-weight: 500;
+}
+
+.add-event-header .close {
+    font-size: 2.0rem;
+    cursor: pointer;
+}
+
+.add-event-header .close:hover {
+    color: #1d717c;
+}
+
+.add-event-header .title {
+    font-size: 1.5rem;
+}
+
+/*イベント追加内部の装飾*/
+.add-event-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+}
+
+.add-event-body .add-event-input {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.add-event-body .add-event-input input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #959496;
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #757378;
+}
+
+/*インプットボックス内部の文字色*/
+.add-event-body .add-event-input input::placeholder {
+    color: #757378;
+}
+
+/*インプットボックス選択時の下線色の装飾*/
+.add-event-body .add-event-input input:focus {
+    border-color: #0aa756;
+}
+
+/*インプットボックス選択時の装飾*/
+.add-event-body .add-event-input input:focus::placeholder {
+    color: #0aa756;
+}
+
+.add-event-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.add-event-btn {
+    height: 40px;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: #0aa756;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.add-event {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #0aa756;
+    border: 3px solid #0aa756;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.add-event i {
+    pointer-events: none;
+}
